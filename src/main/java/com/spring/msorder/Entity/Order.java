@@ -30,6 +30,10 @@ public class Order {
     @JsonBackReference
     private List<OrderItem> orderItems;
 
+    @OneToMany(mappedBy = "order")
+    @JsonBackReference
+    private List<MealSet> mealSets;
+
     @Column(unique=true, nullable=false)
     private Float totalPrice;
 

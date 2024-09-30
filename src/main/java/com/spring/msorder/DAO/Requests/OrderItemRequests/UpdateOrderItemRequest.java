@@ -8,7 +8,7 @@ import lombok.Setter;
 @Builder
 @Getter
 @Setter
-public class CreateOrderItemRequest {
+public class UpdateOrderItemRequest {
     @NotNull(message = "Meal id must be provided")
     private Long mealId;
 

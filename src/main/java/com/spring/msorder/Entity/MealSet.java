@@ -1,5 +1,6 @@
 package com.spring.msorder.Entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,6 +20,11 @@ public class MealSet {
     @SequenceGenerator(name = "meal_set_id", sequenceName = "meal_set_id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "meal_set_id")
     private Long id;
+
+    @ManyToOne
+    @JsonManagedReference
+    @JoinColumn(name = "order_id")
+    private Order order;
 
     private Long menuId;
 

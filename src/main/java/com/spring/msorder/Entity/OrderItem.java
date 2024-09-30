@@ -1,6 +1,7 @@
 package com.spring.msorder.Entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.spring.msorder.Enum.OrderItemType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -32,6 +33,9 @@ public class OrderItem {
 
     @Column(unique=true, nullable=false)
     private Byte quantity;
+
+    @Column(nullable=false)
+    private OrderItemType orderItemType;
 
     @Column(nullable = false)
     private Float priceAtOrder;
