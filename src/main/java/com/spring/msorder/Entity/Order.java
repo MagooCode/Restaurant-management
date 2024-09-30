@@ -34,8 +34,14 @@ public class Order {
     @JsonBackReference
     private List<MealSet> mealSets;
 
-    @Column(unique=true, nullable=false)
+    @Column(nullable=false)
     private Float totalPrice;
+
+    @Column(nullable=false)
+    private Float customOrderItemsPrice;
+
+    @Column(nullable=false)
+    private Float mealSetsPrice;
 
     @Column(nullable=false)
     private OrderStatus orderStatus;

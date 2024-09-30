@@ -11,6 +11,10 @@ public interface OrderItemService {
     String saveBlueprintOrderItem(CreateOrderItemRequest createOrderItemRequest);
     String updateOrderItem(Long orderItemId, UpdateOrderItemRequest updateOrderItemRequest);
     String deleteOrderItem(Long orderItemId);
+    void increaseOrderItemQuantityByOne(Long orderItemId);
+    void decreaseOrderItemQuantityByOne(Long orderItemId);
     OrderItem getOrderItem(Long orderItemId);
     List<OrderItem> getOrderItems();
+    void assignOrderItemToMealSet(Long orderItemId, Long mealSetId);
+    void assignOrderItemToOrder(Long orderId, Long orderItemId);
 }

@@ -12,4 +12,5 @@ public interface MealSetService {
     String deleteMealSet(Long mealSetId);
     MealSet getMealSetById(Long mealSetId);
     List<MealSet> getMealSets();
+    void assignMealSetToOrder(Long mealSetId, Long orderId);
 }
