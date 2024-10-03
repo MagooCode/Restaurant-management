@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/../ms-discovery" />
+    <file type="web" url="file://$PROJECT_DIR$/ms-discovery" />
     <file type="web" url="file://$PROJECT_DIR$/ms-order" />
+    <file type="web" url="file://$PROJECT_DIR$/ms-restaurant-user" />
+    <file type="web" url="file://$PROJECT_DIR$/restaurant-service" />
   </component>
   <component name="ProjectRootManager">
     <output url="file://$PROJECT_DIR$/out" />

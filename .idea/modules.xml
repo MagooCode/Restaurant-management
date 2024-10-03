@@ -3,6 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/Restaurant-Microservice.iml" filepath="$PROJECT_DIR$/.idea/Restaurant-Microservice.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ms-order.main.iml" filepath="$PROJECT_DIR$/.idea/modules/ms-order.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ms-restaurant.main.iml" filepath="$PROJECT_DIR$/.idea/modules/ms-restaurant.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ms-user-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/ms-user-service.main.iml" />
     </modules>
   </component>
 </project>
