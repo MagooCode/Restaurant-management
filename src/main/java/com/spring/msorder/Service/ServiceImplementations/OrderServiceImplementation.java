@@ -2,6 +2,7 @@ package com.spring.msorder.Service.ServiceImplementations;
 
 import com.spring.msorder.DAO.Requests.OrderRequests.CreateOrderRequest;
 import com.spring.msorder.DAO.Requests.OrderRequests.UpdateOrderRequest;
+import com.spring.msorder.DAO.Responses.OrderResponses.GetOrderResponse;
 import com.spring.msorder.Entity.Order;
 import com.spring.msorder.Mapper.OrderMapper;
 import com.spring.msorder.Repository.OrderRepository;
@@ -43,14 +44,13 @@ public class OrderServiceImplementation implements OrderService {
     }
 
     @Override
-    public Order getOrderbyId(Long orderId) {
+    public GetOrderResponse getOrderbyId(Long orderId) {
         Order order = orderRepository.findById(orderId).get();
-        return order;
+        return OrderMapper.ORDER_MAPPER.mapOrderToResponse(order);
     }
 
     @Override
-    public List<Order> getOrders() {
-        List<Order> orders = orderRepository.findAll();
-        return orders;
+    public List<GetOrderResponse> getOrders() {
+        return orderRepository.findAll().stream().map(OrderMapper.ORDER_MAPPER::mapOrderToResponse).toList();
     }
 }

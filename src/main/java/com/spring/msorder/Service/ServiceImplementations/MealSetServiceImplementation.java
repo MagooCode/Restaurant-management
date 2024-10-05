@@ -2,9 +2,12 @@ package com.spring.msorder.Service.ServiceImplementations;
 
 import com.spring.msorder.DAO.Requests.MealSetRequests.CreateMealSetRequest;
 import com.spring.msorder.DAO.Requests.MealSetRequests.UpdateMealSetRequest;
+import com.spring.msorder.DAO.Responses.MealSetResponses.GetMealSetResponse;
 import com.spring.msorder.Entity.MealSet;
 import com.spring.msorder.Entity.Order;
+import com.spring.msorder.Entity.OrderItem;
 import com.spring.msorder.Mapper.MealSetMapper;
+import com.spring.msorder.Mapper.OrderItemMapper;
 import com.spring.msorder.Repository.MealSetRepository;
 import com.spring.msorder.Repository.OrderRepository;
 import com.spring.msorder.Service.MealSetService;
@@ -47,14 +50,14 @@ public class MealSetServiceImplementation implements MealSetService {
     }
 
     @Override
-    public MealSet getMealSetById(Long mealSetId) {
-        return mealSetRepository.findById(mealSetId).get();
+    public GetMealSetResponse getMealSetById(Long mealSetId) {
+        MealSet mealSet = mealSetRepository.findById(mealSetId).get();
+        return MealSetMapper.MEAL_SET_MAPPER.mapMealSetToResponse(mealSet);
     }
 
     @Override
-    public List<MealSet> getMealSets() {
-        List<MealSet> mealSets = mealSetRepository.findAll();
-        return mealSets;
+    public List<GetMealSetResponse> getMealSets() {
+        return mealSetRepository.findAll().stream().map(MealSetMapper.MEAL_SET_MAPPER::mapMealSetToResponse).toList();
     }
 
     @Override

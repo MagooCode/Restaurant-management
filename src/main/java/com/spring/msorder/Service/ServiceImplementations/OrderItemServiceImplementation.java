@@ -3,6 +3,7 @@ package com.spring.msorder.Service.ServiceImplementations;
 import com.spring.msorder.Client.RestaurantClient;
 import com.spring.msorder.DAO.Requests.OrderItemRequests.CreateOrderItemRequest;
 import com.spring.msorder.DAO.Requests.OrderItemRequests.UpdateOrderItemRequest;
+import com.spring.msorder.DAO.Responses.OrderItemResponses.GetOrderItemResponse;
 import com.spring.msorder.DAO.Responses.RestaurantResponses.MealResponse;
 import com.spring.msorder.Entity.MealSet;
 import com.spring.msorder.Entity.Order;
@@ -85,15 +86,14 @@ public class OrderItemServiceImplementation implements OrderItemService {
     }
 
     @Override
-    public OrderItem getOrderItem(Long orderItemId) {
+    public GetOrderItemResponse getOrderItem(Long orderItemId) {
         OrderItem orderItem = orderItemRepository.findById(orderItemId).get();
-        return orderItem;
+        return OrderItemMapper.ORDER_ITEM_MAPPER.mapOrderItemToResponse(orderItem);
     }
 
     @Override
-    public List<OrderItem> getOrderItems() {
-        List<OrderItem> orderItems = orderItemRepository.findAll();
-        return orderItems;
+    public List<GetOrderItemResponse> getOrderItems() {
+        return orderItemRepository.findAll().stream().map(OrderItemMapper.ORDER_ITEM_MAPPER::mapOrderItemToResponse).toList();
     }
 
     @Override

@@ -2,6 +2,8 @@ package com.spring.msorder.Mapper;
 
 import com.spring.msorder.DAO.Requests.MealSetRequests.CreateMealSetRequest;
 import com.spring.msorder.DAO.Requests.MealSetRequests.UpdateMealSetRequest;
+import com.spring.msorder.DAO.Responses.MealSetResponses.GetMealSetResponse;
+import com.spring.msorder.DAO.Responses.OrderItemResponses.GetOrderItemResponse;
 import com.spring.msorder.Entity.MealSet;
 import com.spring.msorder.Entity.OrderItem;
 
@@ -35,5 +37,16 @@ public enum MealSetMapper {
         }
 
         return mealSetToUpdate;
+    }
+
+    public GetMealSetResponse mapMealSetToResponse(MealSet mealSet) {
+        return GetMealSetResponse.builder()
+                .id(mealSet.getId())
+                .menuId(mealSet.getMenuId())
+                .name(mealSet.getName())
+                .description(mealSet.getDescription())
+                .discount(mealSet.getDiscount())
+                .totalPrice(mealSet.getTotalPrice())
+                .build();
     }
 }

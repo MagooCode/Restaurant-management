@@ -3,6 +3,7 @@ package com.spring.msorder.Mapper;
 
 import com.spring.msorder.DAO.Requests.OrderItemRequests.CreateOrderItemRequest;
 import com.spring.msorder.DAO.Requests.OrderItemRequests.UpdateOrderItemRequest;
+import com.spring.msorder.DAO.Responses.OrderItemResponses.GetOrderItemResponse;
 import com.spring.msorder.Entity.OrderItem;
 
 public enum OrderItemMapper {
@@ -29,5 +30,15 @@ public enum OrderItemMapper {
         }
 
         return orderItemToUpdate;
+    }
+
+    public GetOrderItemResponse mapOrderItemToResponse(OrderItem orderItem) {
+        return GetOrderItemResponse.builder()
+                .id(orderItem.getId())
+                .mealId(orderItem.getMealId())
+                .quantity(orderItem.getQuantity())
+                .orderItemType(orderItem.getOrderItemType())
+                .priceAtOrder(orderItem.getPriceAtOrder())
+                .build();
     }
 }

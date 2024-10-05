@@ -2,6 +2,7 @@ package com.spring.msorder.Service;
 
 import com.spring.msorder.DAO.Requests.OrderItemRequests.CreateOrderItemRequest;
 import com.spring.msorder.DAO.Requests.OrderItemRequests.UpdateOrderItemRequest;
+import com.spring.msorder.DAO.Responses.OrderItemResponses.GetOrderItemResponse;
 import com.spring.msorder.Entity.OrderItem;
 
 import java.util.List;
@@ -13,8 +14,8 @@ public interface OrderItemService {
     String deleteOrderItem(Long orderItemId);
     void increaseOrderItemQuantityByOne(Long orderItemId);
     void decreaseOrderItemQuantityByOne(Long orderItemId);
-    OrderItem getOrderItem(Long orderItemId);
-    List<OrderItem> getOrderItems();
+    GetOrderItemResponse getOrderItem(Long orderItemId);
+    List<GetOrderItemResponse> getOrderItems();
     void assignOrderItemToMealSet(Long orderItemId, Long mealSetId);
     void assignOrderItemToOrder(Long orderId, Long orderItemId);
 }
