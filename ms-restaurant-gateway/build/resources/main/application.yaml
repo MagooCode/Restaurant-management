@@ -1,0 +1,59 @@
+spring:
+  application:
+    name: ms-restaurant-gateway
+  cloud:
+    gateway:
+      enabled: true
+      routes:
+        - id: ms-order-restaurant
+          uri: lb://MS-ORDER
+          predicates:
+            - Path=/api/mealSet/**, /api/order/**, /api/orderItem/**
+          filters:
+            - RewritePath=/api/(?<segment1>mealSet|order|orderItem)/(?<segment2>.*), /api/v1/${segment1}/${segment2}
+            - AuthenticationFilter
+
+        - id: ms-restaurant-auth
+          uri: lb://MS-RESTAURANT-AUTH
+          predicates:
+            - Path=/api/auth/**
+          filters:
+            - RewritePath=/api/auth/(?<segment>.*), /api/v1/auth/${segment}
+            - AuthenticationFilter
+
+        - id: ms-restaurant-user
+          uri: lb://MS-RESTAURANT-USER
+          predicates:
+            - Path=/api/user/**, /api/role/**
+          filters:
+            - RewritePath=/api/(?<segment1>user|role)/(?<segment2>.*), /api/v1/${segment1}/${segment2}
+            - AuthenticationFilter
+
+        - id: ms-restaurant
+          uri: lb://MS-RESTAURANT
+          predicates:
+            - Path=/api/meal/**, /api/menu/**, /api/restaurant/**
+          filters:
+            - RewritePath=/api/(?<segment1>meal|menu|restaurant)/(?<segment2>.*), /api/v1/${segment1}/${segment2}
+            - AuthenticationFilter
+
+
+
+
+
+
+
+  main:
+   web-application-type: reactive
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+
+
+server:
+  port: 8080

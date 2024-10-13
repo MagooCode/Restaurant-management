@@ -1,0 +1,54 @@
+spring:
+  application:
+    name: ms-notification
+
+  mail:
+    host: localhost
+    port: 1025
+    username: username
+    password: password
+    properties:
+      mail:
+        smtp:
+          trust: "*"
+        auth: true
+        starttls:
+          enabled: true
+        connectiontimeout: 5000
+        timeout: 3000
+        writetimeout: 5000
+
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/ms-restaurant-notification
+    username: postgres
+    password: root@123
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+
+  kafka:
+    consumer:
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      bootstrap-servers: localhost:9092
+      properties:
+        spring.json.trusted.packages: '*'
+        spring.json.type.mapping: orderConfirmationEvent:az.msrestaurantnotification.events.OrderConfirmationEvent
+      group-id: orderConfirmationGroup
+
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+server:
+  port: 8050
