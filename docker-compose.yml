@@ -1,0 +1,209 @@
+version: '3.8'
+
+services:
+  zookeeper:
+    image: wurstmeister/zookeeper
+    container_name:  restaurant-zookeeper
+    ports:
+      - "2181:2181"
+    networks:
+      - restaurant-microservice-net
+
+  kafka:
+    image: wurstmeister/kafka
+    container_name: restaurant-kafka
+    ports:
+      - "9092:9092"
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,PLAINTEXT_INTERNAL://0.0.0.0:29092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092,PLAINTEXT_INTERNAL://kafka:29092
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_INTERNAL:PLAINTEXT
+    networks:
+        - restaurant-microservice-net
+
+  mail-dev:
+    container_name: restaurant_mail_dev
+    image: maildev/maildev
+    ports:
+      - "1080:1080"
+      - "1025:1025"
+    networks:
+      - restaurant-microservice-net
+
+  postgres:
+    container_name: restaurant_microservice_sql
+    image: postgres
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      PGDATA: /var/lib/postgres/data
+    volumes:
+      - postgres:/var/lib/postgres/data
+    ports:
+      - "5433:5432"
+    networks:
+      - restaurant-microservice-net
+    restart: unless-stopped
+
+
+  pgadmin:
+    container_name: restaurant_microservice_pdgadmin
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin@pgadmin.org}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+      PGADMIN-CONFIG-SERVER_MODE: 'false'
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+    ports:
+      - "5050:80"
+    networks:
+      - restaurant-microservice-net
+    restart: unless-stopped
+
+
+  order-service:
+    container_name: order_microservice
+    image: order-service
+    build:
+      context: ./ms-order-restaurant
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/ms-restaurant-order
+      - SPRING_DATASOURCE_USERNAME=user
+      - SPRING_DATASOURCE_PASSWORD=password
+      - SPRING_PROFILES_ACTIVE=docker
+      - SPRING_KAFKA_BOOTSTRAP_SERVERS=kafka:29092
+    depends_on:
+      - postgres
+      - kafka
+      - discovery-server
+      - gateway-service
+    networks:
+      - restaurant-microservice-net
+    ports:
+      - "8200:8200"
+
+
+
+  auth-service:
+    container_name: restaurant_auth_microservice
+    image: ms-restaurant-auth
+    build:
+      context: ./ms-restaurant-auth
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    depends_on:
+      - discovery-server
+      - gateway-service
+    networks:
+      - restaurant-microservice-net
+    ports:
+      - "9000:9000"
+
+
+
+  gateway-service:
+    container_name: restaurant_gateway
+    image: restaurant-gateway
+    build:
+      context: ./ms-restaurant-gateway
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    depends_on:
+      - discovery-server
+    networks:
+      - restaurant-microservice-net
+    ports:
+      - "8080:8080"
+
+
+
+
+  notification-service:
+    container_name: restaurant_notification
+    image: restaurant-notification
+    build:
+      context: ./ms-restaurant-notification
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/ms-restaurant-notification
+      - SPRING_DATASOURCE_USERNAME=user
+      - SPRING_DATASOURCE_PASSWORD=password
+      - SPRING_PROFILES_ACTIVE=docker
+      - SPRING_KAFKA_BOOTSTRAP_SERVERS=kafka:29092
+      - SPRING_MAIL_HOST=mail-dev
+    depends_on:
+      - postgres
+      - kafka
+      - discovery-server
+      - mail-dev
+      - gateway-service
+    networks:
+      - restaurant-microservice-net
+    ports:
+      - "8050:8050"
+
+
+  user-service:
+    container_name: restaurant_user
+    image: restaurant-user
+    build:
+      context: ./ms-restaurant-user
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/ms-restaurant-user
+      - SPRING_DATASOURCE_USERNAME=user
+      - SPRING_DATASOURCE_PASSWORD=password
+      - SPRING_PROFILES_ACTIVE=docker
+    depends_on:
+      - postgres
+      - discovery-server
+      - gateway-service
+    networks:
+      - restaurant-microservice-net
+    ports:
+      - "8090:8090"
+
+
+  restaurant-service:
+    container_name: restaurant
+    image: restaurant
+    build:
+      context: ./restaurant-service
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/ms-restaurant
+      - SPRING_DATASOURCE_USERNAME=user
+      - SPRING_DATASOURCE_PASSWORD=password
+      - SPRING_PROFILES_ACTIVE=docker
+    depends_on:
+      - postgres
+      - discovery-server
+      - gateway-service
+    networks:
+      - restaurant-microservice-net
+    ports:
+      - "8100:8100"
+
+
+  discovery-server:
+    container_name: discovery-server
+    image: restaurant-discovery
+    build:
+      context: ./ms-discovery
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - restaurant-microservice-net
+#    environment:
+#      - SPRING_PROFILES_ACTIVE=docker
+    ports:
+      - "8761:8761"
+
+networks:
+  restaurant-microservice-net:
+    driver: bridge
+
+volumes:
+  postgres:
+  pgadmin:

@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: ms-restaurant-auth
+
+admin:
+  registration:
+    code: admin694admin
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+server:
+  port: 9000
+
+SECRET:
+  hb3J1ZW9idTQzNW5zdGF1In0Khb3J1ZW9idTQzNW5zdGF1In0Khb3J1ZW9idTQzNW5zdGF1In0Khb3J1ZW9idTQzNW5zdGF1In0Khb3J1ZW9idTQzNW5zdGF1In0Khb3J1ZW9idTQzNW5zdGF1In0Khb3J1ZW9idTQzNW5zdGF1In0Khb3J1ZW9idTQzNW5zdGF1In0K
+

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/../ms-discovery" />
+    <file type="web" url="file://$PROJECT_DIR$/ms-discovery" />
+    <file type="web" url="file://$PROJECT_DIR$/ms-order" />
+    <file type="web" url="file://$PROJECT_DIR$/ms-order-restaurant" />
+    <file type="web" url="file://$PROJECT_DIR$/ms-restaurant-auth" />
+    <file type="web" url="file://$PROJECT_DIR$/ms-restaurant-gateway" />
+    <file type="web" url="file://$PROJECT_DIR$/ms-restaurant-notification" />
+    <file type="web" url="file://$PROJECT_DIR$/ms-restaurant-user" />
+    <file type="web" url="file://$PROJECT_DIR$/restaurant-service" />
+  </component>
+  <component name="ProjectRootManager">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+</project>

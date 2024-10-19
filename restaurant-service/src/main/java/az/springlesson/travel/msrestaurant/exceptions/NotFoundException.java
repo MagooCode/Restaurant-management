@@ -1,0 +1,7 @@
+package az.springlesson.travel.msrestaurant.exceptions;
+
+public class NotFoundException extends RuntimeException {
+    public NotFoundException(String message) {
+        super(message);
+    }
+}

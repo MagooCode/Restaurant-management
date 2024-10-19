@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleMigrationSettings" migrationVersion="1" />
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/ms-discovery" />
+        <option name="gradleJvm" value="graalvm-jdk-21" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/ms-discovery" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/ms-order-restaurant" />
+        <option name="gradleJvm" value="graalvm-jdk-21" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/ms-order-restaurant" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/ms-restaurant-auth" />
+        <option name="gradleJvm" value="graalvm-jdk-21" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/ms-restaurant-auth" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/ms-restaurant-gateway" />
+        <option name="gradleJvm" value="graalvm-jdk-21" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/ms-restaurant-gateway" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/ms-restaurant-notification" />
+        <option name="gradleJvm" value="graalvm-jdk-21" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/ms-restaurant-notification" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/ms-restaurant-user" />
+        <option name="gradleJvm" value="graalvm-jdk-21" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/ms-restaurant-user" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/restaurant-service" />
+        <option name="gradleJvm" value="graalvm-jdk-21" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/restaurant-service" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>
